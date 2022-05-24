@@ -2,8 +2,14 @@ import { h } from 'preact';
 import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-preact-pure';
 import { NumberComponent } from './number.component';
+import jsdom from 'jsdom';
 
 configure({ adapter: new Adapter })
+
+const { JSDOM } = jsdom;
+const { window } = new JSDOM();
+const { document } = (new JSDOM('')).window;
+global.document = document;
 
 describe('NumberComponent', () => {
     it('should display the input correctly', async () => {

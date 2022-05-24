@@ -1,0 +1,45 @@
+@import (reference) "../less/styled-components.include.less";
+
+.holiday-info {
+  text-align : center;
+  color : @squid-ink;
+  display : grid;
+  grid-template-columns: repeat(6, 1fr);
+
+  .col {
+    grid-column: span 6;
+    padding : 10px;
+  }
+    
+  .price{
+    color : @virgin-red;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+
+  .pricepp{
+    color : @virgin-red;
+    font-weight: bold;
+  }
+
+  @media (min-width: @screen-sm) {
+    .col {
+      grid-column: span 2;
+    }
+  }
+
+  @media (min-width: @screen-md) {
+    text-align : right;
+    display : block;
+    
+    .price{
+      font-size: 1em;
+    }
+  }
+
+  @media (min-width: @screen-lg) {
+    .price{
+      font-size: 1.2em;
+    }
+  }
+}

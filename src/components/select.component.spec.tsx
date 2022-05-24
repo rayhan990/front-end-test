@@ -3,9 +3,16 @@ import { mount, configure } from 'enzyme';
 import { LOCATIONS } from '../consts/search'
 import Adapter from 'enzyme-adapter-preact-pure';
 import { SelectComponent } from './select.component';
+import jsdom from 'jsdom';
 
 configure({ adapter: new Adapter })
-3
+
+
+const { JSDOM } = jsdom;
+const { window } = new JSDOM();
+const { document } = (new JSDOM('')).window;
+global.document = document;
+
 describe('SelectComponent', () => {
     it('should display the input correctly', async () => {
         const select_component = mount(<SelectComponent name="location" label="Destination" id="location_field" value={""} options={LOCATIONS} required={true} />)

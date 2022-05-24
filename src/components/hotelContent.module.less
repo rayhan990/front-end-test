@@ -1,0 +1,21 @@
+@import (reference) "../less/styled-components.include.less";
+
+.holiday-content {
+  color : @squid-ink;
+  position: relative;
+  
+  p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  @media (min-width: @screen-md) {
+    p{
+      overflow: unset;
+      text-overflow: unset;
+    }
+  }
+}

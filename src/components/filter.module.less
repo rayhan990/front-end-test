@@ -1,0 +1,82 @@
+@import (reference) "../less/styled-components.include.less";
+
+.filterBar{
+  padding : 20px 10px;
+  background: @virgin-red;
+  color: @white;
+  font-weight: bold;
+  margin: 20 0;
+  border-radius: 4px;
+
+  .title{
+    margin: 5px 0px;
+    border-bottom: 1px dotted @off-white;
+  }
+
+  .col{
+    padding: 10px 10px;
+    text-align: center;
+    align-self: center;
+  }
+
+  .button {
+    text-align: center;
+    border: none;
+    background: @purple;
+    color: @white;
+    width: 100%;
+    height: 36px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 6px 16px;
+    transition: background-color @transition-speed @transition-easing, color @transition-speed @transition-easing;
+
+    &.skin-secondary {
+      background-color: transparent;
+    }
+
+    &:hover{
+      opacity: 0.7;
+    }
+  }
+
+  @media (min-width: @screen-md) {
+    padding: 30px 10px;
+    display: grid;
+    align-items: start;
+    grid-template-columns: repeat(12, 1fr);
+
+    .col {
+      grid-column: span 4;
+    }
+    
+    .col:nth-child(1) {
+      grid-column: span 12;
+    }
+
+    .col:nth-child(5) {
+      grid-column: span 12;
+    }
+
+    .col:nth-child(3) {
+      border-left: 1px @white solid;
+      border-right: 1px @white solid;
+    }
+  }
+
+  @media (min-width: @screen-lg) {
+    .col {
+      grid-column: span 3;
+    }
+
+    .col:nth-child(3) {
+      grid-column: span 4;
+    }
+
+    .col:nth-child(5) {
+      grid-column: span 2;
+      border-left: 1px @white solid;
+    }
+  }
+}

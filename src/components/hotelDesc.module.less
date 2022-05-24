@@ -1,0 +1,27 @@
+@import (reference) "../less/styled-components.include.less";
+.holiday-description {
+  text-align: center;
+  color : @squid-ink;
+
+  p, h2{
+    text-align: left;
+  }
+
+  .expand-button{
+    text-align: center;
+    border: none;
+    background: @virgin-red;
+    color: @white;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 10px 10px;
+    transition: background-color @transition-speed @transition-easing, color @transition-speed @transition-easing;
+
+    &.skin-secondary {
+      background-color: transparent;
+    }
+  }
+
+  @media (min-width: @screen-md) {
+  }
+}

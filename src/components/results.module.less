@@ -1,0 +1,52 @@
+@import (reference) "../less/styled-components.include.less";
+
+.results{
+  text-align: center;
+
+  .load-more{
+    border: none;
+    background: @virgin-red;
+    border-radius: 4px;
+    padding: 10;
+    color: @white;
+    width: 100%;
+    margin: 20px 0;
+  }
+
+  .resultTile {
+    text-align: center;
+    border: none;
+    background: @blanket;
+    color: @white;
+    width: 100%;
+    border-radius: 4px;
+    padding: 0px;
+    margin : 10px 0px;
+    padding: 10px 0;
+
+
+    @media (min-width: @screen-md) {
+      display: grid;
+      align-items: start;
+      grid-template-columns: repeat(6, 1fr);
+      padding: 20px 0;
+
+      .col {
+        grid-column: span 6;
+        padding : 10px;
+      }
+      
+      .col:nth-child(1) {
+        grid-column: span 2;
+      }
+
+      .col:nth-child(2) {
+        grid-column: span 3;
+      }
+
+      .col:nth-child(3) {
+        grid-column: span 1;
+      }
+    }
+  }
+}
