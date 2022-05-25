@@ -3,8 +3,7 @@ import { useState, useEffect } from 'preact/hooks';
 import { HotelImage } from '../types/booking';
 import * as styles from './carousel.module.less'
 import { IMAGES } from '../consts/carousel'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleArrowLeft, faCircleArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa'
 
 export default function Carousel({images} : HotelImage[]): JSX.Element {
     const [imagestore, setImagestore] = useState([{url : IMAGES.NoImageUrl, desc : IMAGES.NoImageDesc}]);
@@ -30,10 +29,10 @@ export default function Carousel({images} : HotelImage[]): JSX.Element {
         <div className={`${styles['carousel']}`} >
             <img src={imagestore[currentImage].url} alt={imagestore[currentImage].desc}/>
             <div className={`${styles['next']}`} onClick={() => scrollCarousel(1)}>
-                <FontAwesomeIcon icon={ faCircleArrowRight }/>
+                <FaArrowAltCircleRight/>
             </div>
             <div className={`${styles['prev']}`} onClick={() => {scrollCarousel(-1)}}>
-                <FontAwesomeIcon icon={ faCircleArrowLeft }/>
+                <FaArrowAltCircleLeft/>
             </div>
         </div>
     );

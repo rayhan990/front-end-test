@@ -1,7 +1,6 @@
 import { h, JSX } from 'preact'
 import * as styles from './facilitiesFilter.module.less'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'preact/hooks';
 import Select from 'react-select';
 
 type RatingProps = {

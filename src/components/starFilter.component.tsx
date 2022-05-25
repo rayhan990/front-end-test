@@ -1,23 +1,22 @@
 import { h, JSX } from 'preact'
 import * as styles from './starFilter.module.less'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { useState, useEffect } from 'react';
-import { FILTERS } from '../consts/filters.ts';
+import { FaStar } from 'react-icons/fa'
+import { useState, useEffect } from 'preact/hooks';
+import { FILTERS } from '../consts/filters';
 
 type RatingProps = {
-  starRatings: Integer[]|String[],
-  handleChange : function
+  starRatings: number[]|String[],
+  handleChange : (ratings : (number | String | undefined)[]) => void
 }
 
-export default function StarFilter(props : RatingProps): JSX.Element {
-    const [selectedRatings, setSelectedRatings] = useState({});
+const StarFilter = (props : RatingProps)  =>{
+    const [selectedRatings, setSelectedRatings] = useState<(number | String | undefined)[]>([]);
 
     useEffect(() => {
         setSelectedRatings([...props.starRatings]);
     }, [props.starRatings])
 
-    const onClick = (rating) => {
+    const onClick = (rating  => {
         setSelectedRatings(ratings => {
             const index = ratings.indexOf(rating);
 
@@ -30,15 +29,19 @@ export default function StarFilter(props : RatingProps): JSX.Element {
             props.handleChange(ratings);
             return ratings;
         });
-    }
+    })
 
 
-    return props.starRatings ? props.starRatings.map((rating, i) => {
+    const elements = props.starRatings.map((rating , i) => {
         return(
-            <span>
-                <label className={`${styles['label']}`} for={rating}>{rating || FILTERS.Unrated}<FontAwesomeIcon icon={ faStar }/></label>
-                <input type="checkbox" value={rating} id={rating} checked={selectedRatings.includes(rating)} onClick={() => onClick(rating)}/>
+            <span data-testid={`star-filter-container${i}`}>
+                <label data-testid={`star-filter-label${i}`} className={`${styles['label']}`} for={`${rating}`}>{rating || FILTERS.Unrated}<FaStar /></label>
+                <input data-testid={`star-filter-checkbox${i}`} type="checkbox" value={rating} id={`${rating}`} checked={selectedRatings.includes(rating)} onClick={() => onClick(rating)}/>
             </span>
         );
-    }) : '';
+    })
+
+   return <div>{elements}</div>
 }
+
+export default StarFilter;

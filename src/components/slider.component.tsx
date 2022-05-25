@@ -1,6 +1,6 @@
 import { h, JSX } from 'preact'
 import * as styles from './slider.module.less'
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'preact/hooks';
 import ReactSlider from "react-slider";
 
 type SliderProps = {npm audit fi

@@ -1,5 +1,5 @@
 import { h, JSX } from 'preact'
-import { useState } from 'preact/hooks';
+import { useState } from 'preact/preact/hooks';
 import { Holiday } from '../types/booking';
 import * as styles from './holidayInfo.module.less'
 import { HOLIDAYINFO } from '../consts/HolidayInfo';

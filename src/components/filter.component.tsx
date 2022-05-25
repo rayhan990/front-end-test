@@ -1,9 +1,7 @@
 import { h, JSX } from 'preact'
 import * as styles from './filter.module.less'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { Holiday } from '../types/booking';
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'preact/hooks';
 import Slider from "./slider.component";
 import StarFilter from "./starFilter.component";
 import FacilitiesFilter from "./facilitiesFilter.component";
