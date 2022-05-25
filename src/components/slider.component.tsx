@@ -3,10 +3,10 @@ import * as styles from './slider.module.less'
 import { useState, useEffect } from 'preact/hooks';
 import ReactSlider from "react-slider";
 
-type SliderProps = {npm audit fi
-  maxValue: Integer,
-  minValue: Integer,
-  handleChange: function
+type SliderProps = {
+  maxValue: number,
+  minValue: number,
+  handleChange: (v1:number, v2:number) => void
 }
 
 export default function HolidayInfo(props : SliderProps): JSX.Element {
@@ -26,16 +26,21 @@ export default function HolidayInfo(props : SliderProps): JSX.Element {
         props.handleChange(values[0], values[1])
     }
 
+    const thumbs = (props, state) => <div {...props}><span>£{state.valueNow}</span></div>;
+
     return (
-        <ReactSlider
-            min={props.minValue}
-            max={props.maxValue}
-            value={[minValue, maxValue]}
-            className={`${styles["horizontal-slider"]}`}
-            thumbClassName={`${styles["example-thumb"]}`}
-            trackClassName={`${styles["example-track"]}`}
-            onChange={onChange}
-            renderThumb={(props, state) => <div {...props}><span>£{state.valueNow}</span></div>}
-        />
+        <div data-testid="slider-filter">
+            <ReactSlider
+                ariaLabel="slider-label"
+                min={props.minValue}
+                max={props.maxValue}
+                value={[minValue, maxValue]}
+                className={`${styles["horizontal-slider"]}`}
+                thumbClassName={`${styles["example-thumb"]}`}
+                trackClassName={`${styles["example-track"]}`}
+                onChange={onChange}
+                renderThumb={thumbs}
+            />
+        </div>
     )
 }

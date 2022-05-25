@@ -1,33 +1,35 @@
 import { h, JSX } from 'preact'
 import { useState, useEffect } from 'preact/hooks';
-import { HotelImage } from '../types/booking';
+import { HotelContent, Image } from '../types/booking';
 import * as styles from './carousel.module.less'
 import { IMAGES } from '../consts/carousel'
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa'
 
-export default function Carousel({images} : HotelImage[]): JSX.Element {
-    const [imagestore, setImagestore] = useState([{url : IMAGES.NoImageUrl, desc : IMAGES.NoImageDesc}]);
+
+
+export default function Carousel(props : HotelContent): JSX.Element {
+    const [imagestore, setImagestore] = useState<Image[]>([{url : IMAGES.url}]);
     const [currentImage, setCurrentImage] = useState(0);
 
     useEffect(() => {
-        const newImages = images.map(x => {
-            return {url : x.RESULTS_CAROUSEL.url, desc : x.IMAGE_DESCRIPTION}
+        const newImages : Image[]= props.images.map(x => {
+            return {url : x.RESULTS_CAROUSEL.url}
         });
 
         setImagestore(newImages);
-    }, [images]);
+    }, [props.images]);
 
     const scrollCarousel = (scrollBy)=>{
         let newIndex = currentImage + scrollBy;
-        newIndex = newIndex<0 ? images.length-1 : newIndex;
-        newIndex = newIndex>images.length-1 ? 0 : newIndex;
+        newIndex = newIndex<0 ? props.images.length-1 : newIndex;
+        newIndex = newIndex>props.images.length-1 ? 0 : newIndex;
 
         setCurrentImage(newIndex);
     }
     
     return (
         <div className={`${styles['carousel']}`} >
-            <img src={imagestore[currentImage].url} alt={imagestore[currentImage].desc}/>
+            <img src={imagestore[currentImage].url} alt="Hotel Image"/>
             <div className={`${styles['next']}`} onClick={() => scrollCarousel(1)}>
                 <FaArrowAltCircleRight/>
             </div>

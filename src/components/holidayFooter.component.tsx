@@ -1,9 +1,9 @@
 import { h, JSX } from 'preact'
-import { Hotel } from '../types/booking';
+import { HotelContent } from '../types/booking';
 import * as styles from './holidayFooter.module.less'
 import { FaMapMarkerAlt } from 'react-icons/fa'
 
-export default function HolidayTopbar(props : HotelContent): JSX.Element {
+export default function HolidayFooter(props : HotelContent): JSX.Element {
     return (
         <div>
             <div className={`${styles['footer']}`}>

@@ -20,7 +20,7 @@ export interface BookingResponse {
 export interface Holiday {
     totalPrice: number
     pricePerPerson: number
-    flyingClubMiles: number
+    flyingClubMiles: number|undefined
     virginPoints: number
     tierPoints: number
     departureDate: string

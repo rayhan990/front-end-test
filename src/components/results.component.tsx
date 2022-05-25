@@ -6,8 +6,8 @@ import * as styles from './results.module.less'
 import HolidayTopbar from './holidayTopbar.component'
 import Carousel from './carousel.component'
 import HolidayInfo from './holidayInfo.component'
-import HolidayContent from './hotelContent.component'
-import HolidayDesc from './hotelDesc.component'
+import HotelContent from './hotelContent.component'
+import HotelDesc from './hotelDesc.component'
 import HolidayFooter from './holidayFooter.component'
 
 export default function ResultsRoute(props : BookingResponse): JSX.Element {
@@ -28,19 +28,19 @@ export default function ResultsRoute(props : BookingResponse): JSX.Element {
 
         const data = limitResults.map((holiday, i) => {
             return (
-                <div key={i} className={`${styles['resultTile']}`}>
+                <div aria-label="result-tile" key={i} className={`${styles['resultTile']}`}>
                     <div className={`${styles['col']}`}>
                         <Carousel {...holiday.hotel.content}/>
                     </div>
                     <div className={`${styles['col']}`}>
                         <HolidayTopbar {...holiday.hotel}/>
-                        <HolidayContent {...holiday.hotel.content}/>
+                        <HotelContent {...holiday.hotel.content}/>
                     </div>
                     <div className={`${styles['col']}`}>
                         <HolidayInfo {...holiday}/>
                     </div>
                     <div className={`${styles['col']}`}>
-                        <HolidayDesc {...holiday.hotel.content}/>
+                        <HotelDesc {...holiday.hotel.content}/>
                     </div>
                     <div className={`${styles['col']}`}>
                         <HolidayFooter {...holiday.hotel.content}/>
@@ -56,7 +56,7 @@ export default function ResultsRoute(props : BookingResponse): JSX.Element {
     return (
         <div className={`${styles['results']}`}>
             {buildResults()}
-            <button className={`${styles['load-more']}`} onClick={loadMore}>Load More</button>
+            <button data-testId="load-more-button" className={`${styles['load-more']}`} onClick={loadMore}>Load More</button>
         </div>
     )
 }

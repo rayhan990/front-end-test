@@ -3,15 +3,8 @@ import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-preact-pure';
 import { DateComponent } from './date.component';
 import { DateTime } from 'luxon';
-import jsdom from 'jsdom';
 
 configure({ adapter: new Adapter })
-
-
-const { JSDOM } = jsdom;
-const { window } = new JSDOM();
-const { document } = (new JSDOM('')).window;
-global.document = document;
 
 const format: string = "yyyy-MM-dd";
 

@@ -5,14 +5,14 @@ import { useState, useEffect } from 'preact/hooks';
 import Slider from "./slider.component";
 import StarFilter from "./starFilter.component";
 import FacilitiesFilter from "./facilitiesFilter.component";
-import { FILTERS } from '../consts/filters.ts';
+import { FILTERS } from '../consts/filters';
 
-type FilterProps = {
+export type FilterProps = {
   holidays: Holiday[],
-  setHolidays: function
+  setHolidays: Function
 }
 
-export default function HolidayInfo(props : FilterProps): JSX.Element {
+export default function Filters(props : FilterProps): JSX.Element {
     const [filters, setFilters] = useState(FILTERS.DefaultFilters);
     const [selectedFilters, setSelectedFilters] = useState(FILTERS.DefaultFilters);
     const [showFilters, setShowFilters] = useState(false);
@@ -22,18 +22,21 @@ export default function HolidayInfo(props : FilterProps): JSX.Element {
     }, []);
 
     const buildFilters = () => {
-        const newFilters = {maxPrice: 0, minPrice : Infinity, starRatings: new Set(), facilities : new Set()};
+        const newFilters = {maxPrice: 0, minPrice : Infinity, starRatings: [], facilities : []};
+
+        const starRatings = new Set();
+        const facilities = new Set();
 
         props.holidays.forEach(holiday => {
             newFilters.maxPrice = Math.max(newFilters.maxPrice, holiday.pricePerPerson);
             newFilters.minPrice = Math.min(newFilters.minPrice, holiday.pricePerPerson);
-            newFilters.starRatings.add(holiday.hotel.content.starRating);
-            holiday.hotel.content.hotelFacilities.forEach(x => newFilters.facilities.add(x));
+            starRatings.add(holiday.hotel.content.starRating);
+            holiday.hotel.content.hotelFacilities.forEach(x => facilities.add(x));
         })
 
 
-        newFilters.starRatings = [...newFilters.starRatings].sort((x,y) => x>y);
-        newFilters.facilities = [...newFilters.facilities].sort((x,y) => x>y);
+        newFilters.starRatings = [...starRatings].sort((x,y) => x>y);
+        newFilters.facilities = [...facilities].sort((x,y) => x>y);
 
         setFilters(newFilters);
         setSelectedFilters({...newFilters, facilities : []});
@@ -84,7 +87,7 @@ export default function HolidayInfo(props : FilterProps): JSX.Element {
     }
 
     return (
-        <div className={`${styles['filterBar']}`}>
+        <div data-testid="filter-component" className={`${styles['filterBar']}`}>
             <h3 className={`${styles['col']} ${styles['title']}`}>Filters</h3>
             <div className={`${styles['col']}`}>
                 <Slider maxValue={filters.maxPrice} minValue={filters.minPrice} handleChange={handlePriceChange}/>
