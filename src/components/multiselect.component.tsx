@@ -35,6 +35,10 @@ export default function Multiselect(props : RatingProps): JSX.Element {
         };
     });
 
+    useEffect(() => {
+        setSelected([]);
+    }, [props.options])
+
     const onSelect = () => {
         setOpen(!open);
     }

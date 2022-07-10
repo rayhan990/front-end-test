@@ -4,7 +4,8 @@ import { useState, useEffect } from 'preact/hooks';
 import { FILTERS } from '../consts/filters';
 
 type RatingProps = {
-  handleChange : (ratings : (number | String | undefined)[]) => void
+  handleChange : (ratings : (number | String | undefined)[]) => void,
+  availableRatings : String[]
 }
 
 const StarFilter = (props : RatingProps)  =>{
@@ -26,12 +27,22 @@ const StarFilter = (props : RatingProps)  =>{
         });
     })
 
+    useEffect(() => {
+        setSelectedRatings([...allRatings])
+    }, [props.availableRatings]);
 
     const elements = allRatings.map((rating , i) => {
         return(
             <div className={`${styles['rating']}`} data-testid={`star-filter-container${i}`}>
                 <label data-testid={`star-filter-label${i}`} className={`${styles['label']}`} for={`${rating}`}>{rating || FILTERS.Unrated} &#9733;</label>
-                <input data-testid={`star-filter-checkbox${i}`} type="checkbox" value={rating} id={`${rating}`} checked={selectedRatings.includes(rating)} onClick={() => onClick(rating)}/>
+                <input 
+                    disabled={props.availableRatings.indexOf(rating)<0}
+                    data-testid={`star-filter-checkbox${i}`}
+                    type="checkbox" value={rating}
+                    id={`${rating}`}
+                    checked={selectedRatings.includes(rating)}
+                    onClick={() => onClick(rating)}
+                />
             </div>
         );
     })

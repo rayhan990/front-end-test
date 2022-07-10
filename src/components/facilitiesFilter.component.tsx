@@ -14,6 +14,7 @@ export default function StarFilter(props : RatingProps): JSX.Element {
 
     useEffect(() => {
         setFacilities(props.facilities.map(x => {return {value : x, label : x}}));
+        setSelected([]);
     }, [props.facilities])
 
     const onChange = (values) => {

@@ -42,8 +42,8 @@ export default function Filters(props : FilterProps): JSX.Element {
         })
 
 
-        newFilters.starRatings = [...starRatings].sort((x,y) => x>y ? 1 : -1);
         newFilters.facilities = [...facilities].sort((x,y) => x>y? 1 : -1);
+        newFilters.starRatings = [...starRatings];
 
         setFilters(newFilters);
         setSelectedFilters({...newFilters, facilities : []});
@@ -100,7 +100,7 @@ export default function Filters(props : FilterProps): JSX.Element {
                 <PriceFilter maxValue={filters.maxPrice} minValue={filters.minPrice} handleChange={handlePriceChange}/>
             </div>
             <div data-testid="star-filter-container" className={`${styles['col']}`}>
-                <StarFilter handleChange={handleStarRatingChange}/>
+                <StarFilter handleChange={handleStarRatingChange} availableRatings={filters.starRatings || []}/>
             </div>
             <div className={`${styles['col']}`}>
                 <FacilitiesFilter facilities={filters.facilities} handleChange={handleFacilitiesUpdate}/>
