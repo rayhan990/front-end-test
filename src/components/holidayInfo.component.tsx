@@ -1,18 +1,18 @@
 import { h, JSX } from 'preact'
 import { Holiday } from '../types/booking';
 import * as styles from './holidayInfo.module.less'
-import { HOLIDAYINFO } from '../consts/HolidayInfo';
+import { HOLIDAYINFO } from '../consts/holidayInfo';
 
 
 export default function HolidayInfo(props : Holiday): JSX.Element {
     return (
-        <div className={`${styles['holiday-info']}`}>
-            <div className={`${styles['price']} ${styles['col']}`}>{HOLIDAYINFO.Currency}{props.totalPrice} Total</div>
-            <div className={`${styles['pricepp']} ${styles['col']}`}>{HOLIDAYINFO.Currency}{props.pricePerPerson} P/P</div>
-            <div className={`${styles['col']}`}>{props.departureDate}</div>
-            {props.flyingClubMiles ? <div className={`${styles['col']}`}>{props.flyingClubMiles} Flying Club Miles</div> : ""}
-            {props.virginPoints ? <div className={`${styles['col']}`}>{props.virginPoints} Virgin Points</div> : ""}
-            {props.tierPoints ? <div className={`${styles['col']}`}>{props.tierPoints} Tier Miles</div> : ""}
+        <div data-testid="holiday-info" className={`${styles['holiday-info']}`}>
+            <div data-testid="totalprice" className={`${styles['price']} ${styles['col']}`}>{HOLIDAYINFO.Currency}{props.totalPrice} {HOLIDAYINFO.Total}</div>
+            <div data-testid="pricepp" className={`${styles['pricepp']} ${styles['col']}`}>{HOLIDAYINFO.Currency}{props.pricePerPerson} {HOLIDAYINFO.PPP}</div>
+            <div data-testid="departuredate" className={`${styles['col']}`}>{props.departureDate}</div>
+            {props.flyingClubMiles ? <div data-testid="clubmiles" className={`${styles['col']}`}>{props.flyingClubMiles} {HOLIDAYINFO.ClubMiles}</div> : ""}
+            {props.virginPoints ? <div data-testid="virginpoints" className={`${styles['col']}`}>{props.virginPoints} {HOLIDAYINFO.VirginPoints}</div> : ""}
+            {props.tierPoints ? <div data-testid="tiremiles" className={`${styles['col']}`}>{props.tierPoints} {HOLIDAYINFO.TierMiles}</div> : ""}
         </div>
     )
 }

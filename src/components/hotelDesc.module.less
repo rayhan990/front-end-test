@@ -5,6 +5,7 @@
 
   p, h2{
     text-align: left;
+    padding: 0 10;
   }
 
   .expand-button{
@@ -16,12 +17,10 @@
     cursor: pointer;
     padding: 10px 10px;
     transition: background-color @transition-speed @transition-easing, color @transition-speed @transition-easing;
+    width: auto;
 
     &.skin-secondary {
       background-color: transparent;
     }
-  }
-
-  @media (min-width: @screen-md) {
   }
 }

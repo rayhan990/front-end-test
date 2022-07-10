@@ -2,27 +2,34 @@ import { h, JSX } from 'preact'
 import * as styles from './filter.module.less'
 import { Holiday } from '../types/booking';
 import { useState, useEffect } from 'preact/hooks';
-import Slider from "./slider.component";
+import PriceFilter from "./pricefilter.component";
+import {ButtonComponent} from "./button.component";
 import StarFilter from "./starFilter.component";
 import FacilitiesFilter from "./facilitiesFilter.component";
 import { FILTERS } from '../consts/filters';
 
-export type FilterProps = {
+type FilterProps = {
   holidays: Holiday[],
   setHolidays: Function
 }
 
+type Filters = {
+    facilities : String[],
+    maxPrice : number,
+    minPrice : number,
+    starRatings: string[]
+}
+
 export default function Filters(props : FilterProps): JSX.Element {
-    const [filters, setFilters] = useState(FILTERS.DefaultFilters);
-    const [selectedFilters, setSelectedFilters] = useState(FILTERS.DefaultFilters);
-    const [showFilters, setShowFilters] = useState(false);
+    const [filters, setFilters] = useState<Filters>(FILTERS.DefaultFilters);
+    const [selectedFilters, setSelectedFilters] = useState<Filters>(FILTERS.DefaultFilters);
 
     useEffect(() => {
         buildFilters();
-    }, []);
+    }, [props.holidays]);
 
     const buildFilters = () => {
-        const newFilters = {maxPrice: 0, minPrice : Infinity, starRatings: [], facilities : []};
+        const newFilters = {...FILTERS.DefaultFilters};
 
         const starRatings = new Set();
         const facilities = new Set();
@@ -35,8 +42,8 @@ export default function Filters(props : FilterProps): JSX.Element {
         })
 
 
-        newFilters.starRatings = [...starRatings].sort((x,y) => x>y);
-        newFilters.facilities = [...facilities].sort((x,y) => x>y);
+        newFilters.starRatings = [...starRatings].sort((x,y) => x>y ? 1 : -1);
+        newFilters.facilities = [...facilities].sort((x,y) => x>y? 1 : -1);
 
         setFilters(newFilters);
         setSelectedFilters({...newFilters, facilities : []});
@@ -59,9 +66,9 @@ export default function Filters(props : FilterProps): JSX.Element {
         });
     }
 
-    const handleFacilitiesUpdate = (selectedFacilities)=>{
+    const handleFacilitiesUpdate = (selectedFacilities : String[])=>{
         setSelectedFilters(selectedFilter => {
-            selectedFilter.facilities = selectedFacilities.map(x => x.value);
+            selectedFilter.facilities = selectedFacilities.map(x => x);
 
             return selectedFilter;
         });
@@ -77,9 +84,9 @@ export default function Filters(props : FilterProps): JSX.Element {
         const filteredHolidays = props.holidays.filter(holiday => {
             return(
                 compareFacilities(holiday.hotel.content.hotelFacilities, selectedFilters.facilities) &&
-                selectedFilters.starRatings.includes(holiday.hotel.content.starRating) &&
-                holiday.pricePerPerson>selectedFilters.minPrice &&
-                holiday.pricePerPerson<selectedFilters.maxPrice
+                selectedFilters.starRatings.includes(holiday?.hotel?.content?.starRating?.toString()) &&
+                holiday.pricePerPerson>=selectedFilters.minPrice &&
+                holiday.pricePerPerson<=selectedFilters.maxPrice
             );
         });
 
@@ -88,18 +95,18 @@ export default function Filters(props : FilterProps): JSX.Element {
 
     return (
         <div data-testid="filter-component" className={`${styles['filterBar']}`}>
-            <h3 className={`${styles['col']} ${styles['title']}`}>Filters</h3>
+            <h3 data-testid="filter-title" className={`${styles['col']} ${styles['title']}`}>{FILTERS.Filters}</h3>
             <div className={`${styles['col']}`}>
-                <Slider maxValue={filters.maxPrice} minValue={filters.minPrice} handleChange={handlePriceChange}/>
+                <PriceFilter maxValue={filters.maxPrice} minValue={filters.minPrice} handleChange={handlePriceChange}/>
             </div>
-            <div className={`${styles['col']}`}>
-                <StarFilter starRatings={filters.starRatings} handleChange={handleStarRatingChange}/>
+            <div data-testid="star-filter-container" className={`${styles['col']}`}>
+                <StarFilter handleChange={handleStarRatingChange}/>
             </div>
             <div className={`${styles['col']}`}>
                 <FacilitiesFilter facilities={filters.facilities} handleChange={handleFacilitiesUpdate}/>
             </div>
             <div className={`${styles['col']}`}>
-                <button className={`${styles['button']}`} onClick={applyFilters}>Apply</button>
+                <ButtonComponent data-testid="filter-apply" className={`${styles['button']}`} onClick={applyFilters} text={FILTERS.Apply}/>
             </div>
         </div>
     )

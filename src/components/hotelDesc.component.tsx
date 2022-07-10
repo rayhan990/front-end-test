@@ -3,10 +3,10 @@ import { useState } from 'preact/hooks';
 import { HotelContent } from '../types/booking';
 import { HOLIDAYINFO } from '../consts/holidayInfo';
 import * as styles from './hotelDesc.module.less'
-import parse from 'html-react-parser';
+import {ButtonComponent} from './button.component'
 
 export default function HotelDescriptions(props : HotelContent): JSX.Element {
-    const [expanded, setExpanded] = useState(false);
+    const [expanded, setExpanded] = useState(HOLIDAYINFO.DefaultExpanded);
 
     const onExpand = () => {
         setExpanded(!expanded);
@@ -17,8 +17,8 @@ export default function HotelDescriptions(props : HotelContent): JSX.Element {
     return (
         <div aria-label="hotel-desc-container" className={styles['holiday-description']}>
             {expanded ? <h2>Description:</h2> : ''}
-            {expanded ? <p aria-label="hotel-description">{parse(props.hotelDescription)}</p> : ''}
-            {props.hotelDescription ? <button aria-label="hotel-desc-expand" className={`${styles['expand-button']}`} onClick={onExpand}>{expandText}</button> : ''}
+            {expanded ? <p aria-label="hotel-description" dangerouslySetInnerHTML={{__html : props.hotelDescription}}/> : ''}
+            {props.hotelDescription ? <ButtonComponent aria-label="hotel-desc-expand" data-testid="hotel-desc-expand" className={`${styles['expand-button']}`} onClick={onExpand} text={expandText} /> : ''}
         </div>
     )
 }

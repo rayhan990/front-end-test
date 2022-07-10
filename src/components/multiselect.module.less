@@ -1,0 +1,43 @@
+@import (reference) "../less/styled-components.include.less";
+
+
+.multiselect{
+	width: 100%;
+	height: 44px;
+	
+	.selectBox{
+		position: relative;
+
+		.overSelect{
+			position: absolute;
+			left: 0;	
+			right: 0;	
+			top: 0;	
+			bottom: 0;	
+		}
+
+		select{
+			width: 100%;
+			font-weight: bold;
+			height: 44px;
+		}
+
+		.overSelect{
+			position: absolute;
+		}
+		
+	}
+
+
+	.options{
+		text-align: left;
+		padding: 5px;
+		display: none;
+		background: white;
+	}
+
+	.show{
+		display: block;
+	}
+}
+

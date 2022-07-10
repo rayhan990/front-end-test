@@ -2,14 +2,14 @@ import { h, JSX } from 'preact'
 import { useState, useEffect } from 'preact/hooks';
 import { HotelContent, Image } from '../types/booking';
 import * as styles from './carousel.module.less'
-import { IMAGES } from '../consts/carousel'
-import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa'
+import { CAROUSEL } from '../consts/carousel'
+import {ButtonComponent} from './button.component'
 
 
 
 export default function Carousel(props : HotelContent): JSX.Element {
-    const [imagestore, setImagestore] = useState<Image[]>([{url : IMAGES.url}]);
-    const [currentImage, setCurrentImage] = useState(0);
+    const [imagestore, setImagestore] = useState<Image[]>([{url : CAROUSEL.url}]);
+    const [currentImage, setCurrentImage] = useState(CAROUSEL.defaultImage);
 
     useEffect(() => {
         const newImages : Image[]= props.images.map(x => {
@@ -28,14 +28,10 @@ export default function Carousel(props : HotelContent): JSX.Element {
     }
     
     return (
-        <div className={`${styles['carousel']}`} >
+        <div data-testid={`carousel`} className={`${styles['carousel']}`} >
             <img src={imagestore[currentImage].url} alt="Hotel Image"/>
-            <div className={`${styles['next']}`} onClick={() => scrollCarousel(1)}>
-                <FaArrowAltCircleRight/>
-            </div>
-            <div className={`${styles['prev']}`} onClick={() => {scrollCarousel(-1)}}>
-                <FaArrowAltCircleLeft/>
-            </div>
+            <ButtonComponent className={`${styles['prev']}`} onClick={() => {scrollCarousel(CAROUSEL.minusOne)}} text="&#11164;"/>
+            <ButtonComponent className={`${styles['next']}`} onClick={() => {scrollCarousel(CAROUSEL.plusOne)}} text="&#11166;"/>
         </div>
     );
 }

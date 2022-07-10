@@ -10,8 +10,9 @@ const handleChange = jest.fn();
 describe('Star Ratings', () => {
     it('should display the input correctly', async () => {
       const {getByTestId, container, getByText, queryAllByRole} = render(<StarRating rating={5}/>);
+      const elem = getByTestId('rating');
 
-      expect(getByTestId('rating')).not.toBe(null);
-      expect(getByText('5')).not.toBe(null);
+      expect(elem).not.toBe(null);
+      expect(elem.textContent).toContain('5');
     })
 })

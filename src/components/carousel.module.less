@@ -2,17 +2,20 @@
 
 .carousel{
   position: relative;
+  width: fit-content;
+  margin: 0px auto;
+
   img{
     max-width : 100%;
   }
 
   .next,.prev{
-    position: absolute;
+    position: absolute !important;
     top: 0;
     bottom: 0;
     margin: auto;
-    height: 25px;
-    width: 25px;
+    height: 50px;
+    width: 50px;
     cursor: pointer;
     opacity: .5;
     font-size: 1.5em;
@@ -30,8 +33,5 @@
 
   .next{
     right: 0;
-  }
-
-  @media (min-width: @screen-md) {
   }
 }

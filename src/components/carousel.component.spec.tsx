@@ -1,10 +1,12 @@
-import { h, JSX } from 'preact';
+import { h } from 'preact';
 import HotelDesc from './hotelDesc.component';
-import { HotelContent } from '../types/booking'
 import {render, fireEvent, screen } from '@testing-library/preact'
 import response from '../test_data/response';
 
-describe('Hotel Description', () => {
+const handleChange = jest.fn();
+
+
+describe('Star Ratings', () => {
     it('should display the input correctly and behaves correctly', async () => {
       const hotelContent = response.holidays[0].hotel.content;
 

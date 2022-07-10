@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel serve src/index.html --https",
-    "test": "jest --config jest.config.js --env=jsdom"
+    "test": "jest --config jest.config.js --env=jsdom --watchAll"
   },
   "repository": {
     "type": "git",
@@ -72,17 +72,15 @@
     "dotenv": "^8.2.0",
     "es6-promise": "^4.2.8",
     "font-awesome": "^4.7.0",
-    "html-react-parser": "^1.4.12",
     "icons-ui": "^0.4.1",
     "identity-obj-proxy": "^3.0.0",
     "jsdom": "^19.0.0",
     "luxon": "^2.4.0",
     "preact": "^10.5.10",
     "preact-async-route": "^2.2.1",
+    "preact-markup": "^2.1.1",
     "preact-router": "^4.0.1",
-    "react-icons": "^4.3.1",
-    "react-select": "^5.3.2",
-    "react-slider": "^2.0.1"
+    "react-select": "^5.3.2"
   },
   "alias": {
     "react": "preact/compat",

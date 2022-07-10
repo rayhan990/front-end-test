@@ -1,11 +1,11 @@
 import { h, JSX } from 'preact'
 import * as styles from './facilitiesFilter.module.less'
 import { useState, useEffect } from 'preact/hooks';
-import Select from 'react-select';
+import Multiselect from './multiselect.component';
 
 type RatingProps = {
-  facilities: Integer[]|String[],
-  handleChange : function
+  facilities: String[],
+  handleChange : (facilities : String[]) => void
 }
 
 export default function StarFilter(props : RatingProps): JSX.Element {
@@ -21,5 +21,5 @@ export default function StarFilter(props : RatingProps): JSX.Element {
         props.handleChange(values);
     }
 
-    return <Select className={`${styles['select']}`} options={facilities} isMulti={true} value={selected} onChange={onChange}/>;
+    return <Multiselect data-testid="multiselect" className={`${styles['select']}`} options={facilities} onChange={onChange}/>;
 }

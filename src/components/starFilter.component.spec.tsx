@@ -8,15 +8,14 @@ const handleChange = jest.fn(x => x);
 
 describe('StarFilter', () => {
     it('should display the input correctly', async () => {
-      const {container} = render(<StarFilter starRatings={ratings} handleChange={handleChange}/>);
+      const {container} = render(<StarFilter handleChange={handleChange}/>);
 
-      expect(container.querySelectorAll('span')).toHaveLength(6);
-      expect(container.querySelectorAll('label')).toHaveLength(6);
-      expect(container.querySelectorAll('input')).toHaveLength(6);
+      expect(container.querySelectorAll('label')).toHaveLength(5);
+      expect(container.querySelectorAll('input')).toHaveLength(5);
     })
 
     it('Check state change and parent function called', () => {
-      const {getByTestId} = render(<StarFilter starRatings={ratings} handleChange={handleChange}/>);
+      const {getByTestId} = render(<StarFilter handleChange={handleChange}/>);
 
       const checkbox = getByTestId('star-filter-checkbox0') as HTMLInputElement;
       fireEvent.click(checkbox)
